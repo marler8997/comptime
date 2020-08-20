@@ -1,0 +1,4 @@
+#!/bin/sh
+dir=$1
+prog=$2
+clang -fno-stack-protector -Os -nostdlib -o $dir/out/$prog $(dirname $dir)/$prog.c

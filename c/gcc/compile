@@ -1,0 +1,5 @@
+#!/bin/sh
+dir=$1
+prog=$2
+# Note: I tried -Os but -O2 gets better results, starting at program b3
+gcc -fno-stack-protector -O2 -nostdlib -o $dir/out/$prog $(dirname $dir)/$prog.c

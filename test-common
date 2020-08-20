@@ -1,0 +1,54 @@
+#!/bin/sh
+# Test a language's comptime abilities
+# 1. create a directory for your language assets
+# 2. in this directory create a symlink called "test" to this test script
+# 3. in this directory, create a "compile" program that takes 2 arguments, the directory and the program to be compiled
+#    this should compile the program into $1/out/$2
+set -e
+
+if [ -L "$0" ]; then
+    dir=$(dirname $(realpath -s $0))
+else
+    echo "Error: cannot execute this script directly, execute it from a symlink"
+    exit 1
+fi
+
+echo testing $dir
+
+rm -rf $dir/out
+mkdir $dir/out
+
+verify_exit_code() {
+    expected=$1
+    shift
+    set +e
+    "$@"
+    actual=$?
+    set -e
+    if [ "$expected" != "$actual" ]; then
+        echo "Expected exit code $expected bug got $actual"
+        exit 1
+    fi
+}
+
+test_prog() {
+    prog=$1
+    expected=$2
+    echo "Compiling program $prog"
+    $dir/compile $dir $prog
+    echo "Testing program $prog"
+    verify_exit_code $expected $dir/out/$prog
+}
+
+test_prog a 76
+test_prog b0 76
+
+# TODO: check if a and b0 are the same
+
+test_prog b1 77
+test_prog b2 86
+test_prog b3 241
+
+
+#zig --release-small build-exe hello.zig
+#./hello

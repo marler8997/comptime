@@ -1,0 +1,4 @@
+#!/bin/sh
+dir=$1
+prog=$2
+zig build-exe --strip --release-small --output-dir $dir/out $dir/$prog.zig

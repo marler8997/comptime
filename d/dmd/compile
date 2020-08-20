@@ -1,0 +1,5 @@
+#!/bin/sh
+dir=$1
+prog=$2
+dmd -I=$(dirname $dir) -i=. -i=object -c -release -inline -O -betterC -conf= -od=$dir/out/obj_$prog $(dirname $dir)/$prog.d
+ld -o $dir/out/$prog $dir/out/obj_$prog/*.o
