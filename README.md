@@ -12,7 +12,8 @@ The following are the current results of each language/compiler.  Every langauge
 |b0     |   A   |    A    |  A  |   NA  |   NA  |
 |b1     |   A   |    A    |  A  |   NA  |   NA  |
 |b2     |   A   |    A    |  A  |   NA  |   NA  |
-|b3     |   A   |    C    |  A  |   NA  |   NA  |
+|b3     |   A   |    A    |  A  |   NA  |   NA  |
+|b3     |   A   |    C    |  C  |   NA  |   NA  |
 
 
 # How to run
@@ -74,7 +75,7 @@ function modify(n)
 
 ### Program b3
 
-Create an additional function called "djb2" that takes an array of bytes and performs a djb2 hash.  Have the modify function call the djb2 function with a 1-byte message whose value is its input integer "anded" with 0xFF.  Note that this same function needs to work as a general implementation of the djb2 hash, this should be tested as well.  The resulting hash should be 177649 (0x2b5f1) but linux only reports the least-significat byte as the exit code, which in this case is 241 (0xf1).
+Create an additional function called "djb2" that takes a pointer to an array of bytes and a size and performs a djb2 hash.  Have the modify function call the djb2 function with a 1-byte message whose value is its input integer "anded" with 0xFF.  Note that this same function needs to work as a general implementation of the djb2 hash, this should be tested as well.  The resulting hash should be 177649 (0x2b5f1) but linux only reports the least-significat byte as the exit code, which in this case is 241 (0xf1).
 
 ```
 function modify(n)
@@ -92,6 +93,10 @@ function djb2(msg)
 * Grade B: both `modify` and `djb2` were inlined, but the djb2 hash is done at runtime
 * Grade C: only one of `modify` or `djb2` were inlined, and the djb2 hash is being done at runtime
 * Grade D: neither `modify` or `djb2` were inlined, and the djb2 hash is being done at runtime
+
+### Program b4
+
+Same as b3 except instead of taking a pointer to an array of bytes and a size, it takes a null-terminated array of bytes.
 
 # Notes on more programs for later
 

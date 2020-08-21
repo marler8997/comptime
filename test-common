@@ -48,6 +48,7 @@ test_prog b0 76
 test_prog b1 77
 test_prog b2 86
 test_prog b3 241
+test_prog b4 241
 
 
 #zig --release-small build-exe hello.zig
